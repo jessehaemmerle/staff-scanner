@@ -73,9 +73,25 @@ APP_DIR="/opt/employee-notes"
 sudo mkdir -p $APP_DIR
 sudo chown $USER:$USER $APP_DIR
 
-# Kopiere App-Dateien
-cp -r /app/backend $APP_DIR/
-cp -r /app/frontend $APP_DIR/
+# Ermittle das Verzeichnis, in dem das Skript liegt
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Kopiere App-Dateien vom Skript-Verzeichnis
+if [ -d "$SCRIPT_DIR/backend" ]; then
+    echo "Kopiere Backend-Dateien..."
+    cp -r $SCRIPT_DIR/backend $APP_DIR/
+else
+    echo -e "${RED}Fehler: backend/ Verzeichnis nicht gefunden in $SCRIPT_DIR${NC}"
+    exit 1
+fi
+
+if [ -d "$SCRIPT_DIR/frontend" ]; then
+    echo "Kopiere Frontend-Dateien..."
+    cp -r $SCRIPT_DIR/frontend $APP_DIR/
+else
+    echo -e "${RED}Fehler: frontend/ Verzeichnis nicht gefunden in $SCRIPT_DIR${NC}"
+    exit 1
+fi
 
 cd $APP_DIR
 
