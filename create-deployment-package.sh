@@ -34,20 +34,12 @@ cp /app/frontend/package.json $TEMP_DIR/frontend/
 cp /app/frontend/tailwind.config.js $TEMP_DIR/frontend/
 cp /app/frontend/postcss.config.js $TEMP_DIR/frontend/
 
+# Kopiere craco.config.js
+cp /app/frontend/craco.config.js $TEMP_DIR/frontend/
+
 # Frontend .env.example
 cat > $TEMP_DIR/frontend/.env.example <<EOF
 REACT_APP_BACKEND_URL=https://ihre-domain.de
-EOF
-
-echo "Kopiere craco.config.js..."
-cat > $TEMP_DIR/frontend/craco.config.js <<EOF
-module.exports = {
-  webpack: {
-    configure: (webpackConfig) => {
-      return webpackConfig;
-    },
-  },
-};
 EOF
 
 echo "Kopiere Dokumentation..."
